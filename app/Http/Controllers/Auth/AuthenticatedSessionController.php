@@ -4,25 +4,23 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Menampilkan modal login (bukan halaman baru).
-     * Modal ini ditrigger via session supaya tetap di halaman home.
+     * Display login modal instead of standalone page.
+     * This is used only when someone manually visits /login.
      */
-    public function create(): RedirectResponse
+    public function create(): \Illuminate\Http\RedirectResponse
     {
         session(['openModal' => 'login']);
         return redirect('/');
     }
 
     /**
-     * Handle proses login user (via AJAX di modal login).
+     * Handle user login (via AJAX modal).
      */
     public function store(LoginRequest $request)
     {
@@ -32,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
-            // Kalau AJAX, kirim JSON
+            // If AJAX request
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => true,
@@ -40,31 +38,31 @@ class AuthenticatedSessionController extends Controller
                 ]);
             }
 
-            // Kalau non-AJAX (misalnya form biasa)
+            // If normal form submission
             return redirect()->intended(route('home'));
         }
 
-        // Kalau gagal login
+        // If login fails (invalid credentials)
         if ($request->expectsJson()) {
             return response()->json([
                 'success' => false,
-                'message' => 'E-mail atau password salah.',
+                'message' => 'Invalid email or password.',
             ], 401);
         }
 
-        return back()->withErrors(['email' => 'E-mail atau password salah.']);
+        return back()->withErrors(['email' => 'Invalid email or password.']);
     }
 
     /**
-     * Logout user dan kembali ke halaman home.
+     * Logout user and redirect to home.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request): \Illuminate\Http\RedirectResponse
     {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/'); // langsung ke home
+        return redirect('/');
     }
 }

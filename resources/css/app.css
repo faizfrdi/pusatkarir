@@ -41,3 +41,27 @@
   transform: rotate(-45deg);
   top: 14px;
 }
+
+/* ===== MOBILE MENU SLIDE DOWN ala INSAP ===== */
+/* ===== MOBILE MENU OVERLAY (tanpa dorong konten) ===== */
+#mobile-menu {
+  position: fixed;         /* overlay */
+  left: 0;
+  right: 0;
+  top: 64px;               /* tinggi navbar, pt-16 = 64px */
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
+  z-index: 40;             /* di atas konten, di bawah modal z-50 */
+}
+
+#mobile-menu.open {
+  max-height: calc(100vh - 64px);
+  opacity: 1;
+  transform: translateY(0);
+  /* optional: shadow biar kebaca layer-nya */
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}

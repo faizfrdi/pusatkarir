@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use App\Notifications\CustomResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -54,5 +55,10 @@ class User extends Authenticatable
                 $user->assignRole('user');
             }
         });
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPasswordNotification($token));
     }
 }

@@ -47,18 +47,18 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                 @foreach([
-                    ['icon' => 'fa-comments', 'title' => 'Counseling Services', 'desc' => 'Talk to professionals about your career and education'],
-                    ['icon' => 'fa-list-check', 'title' => 'Tracer Study', 'desc' => 'Track graduate progress after finishing study'],
-                    ['icon' => 'fa-code', 'title' => 'PUSKAR Community Service', 'desc' => 'Freelance and volunteer projects'],
-                    ['icon' => 'fa-briefcase', 'title' => 'Job Vacancy', 'desc' => 'Full-time and internship opportunities'],
+                    ['image' => 'images/icons/home/counseling.png', 'title' => 'Counseling Services', 'desc' => 'Talk to professionals about your career and education'],
+                    ['image' => 'images/icons/home/tracer.png', 'title' => 'Tracer Study', 'desc' => 'Track graduate progress after finishing study'],
+                    ['image' => 'images/icons/home/community.png', 'title' => 'PUSKAR Community Service', 'desc' => 'Freelance and volunteer projects'],
+                    ['image' => 'images/icons/home/job.png', 'title' => 'Job Vacancy', 'desc' => 'Full-time and internship opportunities'],
                 ] as $service)
-                <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-                    <div class="text-[#34307A] text-3xl mb-3">
-                        <i class="fa-solid {{ $service['icon'] }}"></i>
+                    <div class="p-6 bg-white rounded-xl shadow hover:shadow-lg transition transform hover:scale-105">
+                        <div class="flex justify-center mb-4">
+                            <img src="{{ asset($service['image']) }}" alt="{{ $service['title'] }}" class="w-16 h-16 object-contain drop-shadow-md">
+                        </div>
+                        <h3 class="font-semibold mb-2 text-lg text-[#34307A]">{{ $service['title'] }}</h3>
+                        <p class="text-gray-600 text-sm">{{ $service['desc'] }}</p>
                     </div>
-                    <h3 class="font-semibold mb-2">{{ $service['title'] }}</h3>
-                    <p class="text-gray-600 text-sm">{{ $service['desc'] }}</p>
-                </div>
                 @endforeach
             </div>
         </div>
@@ -137,4 +137,33 @@
             </div>
         </div>
     </section>
+
+    {{-- === AUTO OPEN RESET PASSWORD MODAL === --}}
+    @if(isset($openModal) && $openModal === 'resetPassword')
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const modal = document.getElementById('resetPasswordModal');
+                const content = document.getElementById('resetPasswordModalContent');
+                if (modal && content) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    setTimeout(() => {
+                        modal.classList.add('opacity-100');
+                        content.classList.remove('scale-95', 'opacity-0');
+                        content.classList.add('scale-100', 'opacity-100');
+                    }, 10);
+                }
+
+                // isi otomatis email dan token di form
+                const tokenInput = document.getElementById('resetToken');
+                const emailInput = document.getElementById('resetEmail');
+                @if(isset($resetToken))
+                    if (tokenInput) tokenInput.value = "{{ $resetToken }}";
+                @endif
+                @if(isset($resetEmail))
+                    if (emailInput) emailInput.value = "{{ $resetEmail }}";
+                @endif
+            });
+        </script>
+    @endif
 @endsection

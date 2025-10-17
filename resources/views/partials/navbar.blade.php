@@ -1,4 +1,4 @@
-<nav class="bg-[#34307A] text-white shadow relative z-20">
+<nav class="bg-[#34307A] text-white shadow fixed top-0 w-full z-50">
     <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
         {{-- === KIRI: Logo === --}}
@@ -23,14 +23,11 @@
         </div>
 
         {{-- === KANAN: Menu + Profile === --}}
+        {{-- === KANAN: Menu + Profile === --}}
         <div class="flex items-center space-x-5">
-            {{-- Tombol Menu Mobile --}}
             {{-- Tombol Burger (Mobile) --}}
-            <button id="mobile-menu-toggle"
-                class="md:hidden relative w-8 h-8 flex flex-col justify-center items-center focus:outline-none group">
-                <span class="burger-line absolute w-7 h-[2px] bg-white transition-all duration-300 top-2"></span>
-                <span class="burger-line absolute w-7 h-[2px] bg-white transition-all duration-300 top-4"></span>
-                <span class="burger-line absolute w-7 h-[2px] bg-white transition-all duration-300 top-6"></span>
+            <button id="mobile-menu-toggle" class="md:hidden focus:outline-none">
+                <span></span><span></span><span></span>
             </button>
 
             {{-- Menu Desktop --}}
@@ -184,7 +181,7 @@
             <h2 class="text-3xl font-extrabold text-[#34307A] mb-2">Sign Up</h2>
 
             {{-- Form register --}}
-            <form id="ajaxRegisterForm" method="POST" action="{{ route('register') }}" class="space-y-5 mt-6">
+            <form id="ajaxRegisterForm" method="POST" action="{{ route('register') }}" class="space-y-5 mt-6" novalidate>
                 @csrf
 
                 <div>
@@ -269,7 +266,7 @@
             </div>
 
             {{-- Form --}}
-            <form id="ajaxCandidateForm" method="POST" action="{{ route('register') }}" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <form id="ajaxCandidateForm" method="POST" action="{{ route('register') }}" class="grid grid-cols-1 md:grid-cols-2 gap-5" novalidate>
                 @csrf
                 <input type="hidden" name="role" value="alumni">
 
@@ -371,7 +368,7 @@
 
             {{-- Form --}}
             <form id="ajaxEmployerForm" method="POST" action="{{ route('register') }}" enctype="multipart/form-data"
-                class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                class="grid grid-cols-1 md:grid-cols-2 gap-5" novalidate>
                 @csrf
                 <input type="hidden" name="role" value="employer">
 
@@ -469,7 +466,7 @@
             </p>
 
             {{-- Form --}}
-            <form id="ajaxForgotPasswordForm" method="POST" action="{{ route('password.email') }}" class="space-y-5">
+            <form id="ajaxForgotPasswordForm" method="POST" action="{{ route('password.email') }}" class="space-y-5" novalidate>
                 @csrf
 
                 <div>
@@ -496,10 +493,56 @@
         </div>
     </div>
 
+    {{-- === RESET PASSWORD MODAL === --}}
+    <div id="resetPasswordModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div id="resetPasswordModalContent" class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-md relative p-8 transform transition-all duration-300 scale-95 opacity-0">
+            
+            {{-- Tombol Close --}}
+            <button id="closeResetPasswordModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+
+            {{-- Logo --}}
+            <div class="flex justify-end mb-4">
+                <img src="{{ asset('images/logo-karier-footbar.png') }}" alt="Logo" class="h-10">
+            </div>
+
+            {{-- Judul --}}
+            <h2 class="text-3xl font-extrabold text-[#34307A] mb-2">Reset Your Password</h2>
+            <p class="text-gray-600 mb-6 text-sm">
+                Enter your new password below to regain access.
+            </p>
+
+            {{-- Form --}}
+            <form id="ajaxResetPasswordForm" method="POST" action="{{ route('password.update') }}" class="space-y-5" novalidate>
+                @csrf
+
+                <input type="hidden" name="token" id="resetToken" value="{{ $resetToken ?? '' }}">
+                <input type="hidden" name="email" id="resetEmail" value="{{ $resetEmail ?? '' }}">
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">New Password</label>
+                    <input id="resetPassword" type="password" name="password" placeholder="Enter new password"
+                        class="w-full border border-gray-300 rounded-md focus:ring-[#34307A] focus:border-[#34307A] text-gray-800 placeholder:text-gray-400 py-2 px-3 pr-10">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Confirm Password</label>
+                    <input id="resetConfirmPassword" type="password" name="password_confirmation" placeholder="Confirm new password"
+                        class="w-full border border-gray-300 rounded-md focus:ring-[#34307A] focus:border-[#34307A] text-gray-800 placeholder:text-gray-400 py-2 px-3 pr-10">
+                </div>
+
+                <div id="resetError" class="hidden text-red-700 text-left text-sm"></div>
+                <div id="resetSuccess" class="hidden text-green-700 text-left text-sm"></div>
+
+                <button type="submit" class="w-full bg-[#34307A] hover:bg-[#4a45a2] text-white font-semibold py-2 rounded-md transition">
+                    Update Password
+                </button>
+            </form>
+        </div>
+    </div>
+
     {{-- === MENU MOBILE === --}}
     <div id="mobile-menu"
-        class="hidden md:hidden bg-[#3B368A] text-white px-6 py-4 font-semibold 
-            transition-all duration-500 ease-in-out transform scale-y-95 origin-top opacity-0">
+        class="md:hidden bg-[#3B368A] text-white px-6 py-4 font-semibold">
         
         <div class="relative mb-4 flex space-x-2">
             <input type="text" placeholder="Search"
@@ -534,9 +577,9 @@
                 </button>
                 <div id="communityMobile"
                     class="hidden ml-4 overflow-hidden transition-all duration-500 ease-in-out transform scale-y-95 origin-top opacity-0">
-                    <a href="/event" class="block hover:underline hover:translate-x-1 transition">Event</a>
-                    <a href="/news" class="block hover:underline hover:translate-x-1 transition">News</a>
-                    <a href="/forum" class="block hover:underline hover:translate-x-1 transition">Forum</a>
+                    <a href="/community/event" class="block hover:underline hover:translate-x-1 transition">Event</a>
+                    <a href="/community/news" class="block hover:underline hover:translate-x-1 transition">News</a>
+                    <a href="/community/forum" class="block hover:underline hover:translate-x-1 transition">Forum</a>
                 </div>
             </div>
 

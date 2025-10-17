@@ -3,7 +3,7 @@
         {{-- Grid Wrapper --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
 
-            {{-- === 1. Logo & Alamat === --}}
+            {{-- === Logo & Alamat === --}}
             <div>
                 <img src="{{ asset('images/logo-karier-footbar.png') }}" alt="Logo" class="h-12 mb-3">
                 <p class="font-semibold">Alumni Center IKALUIN Jakarta</p>
@@ -14,16 +14,16 @@
 
                 {{-- Sosial Media --}}
                 <div class="flex flex-wrap gap-3 mt-4">
-                    <a href="#" class="text-[#34307A] hover:text-[#4a45a2]"><i class="fab fa-linkedin fa-lg"></i></a>
-                    <a href="#" class="text-[#34307A] hover:text-[#4a45a2]"><i class="fab fa-telegram fa-lg"></i></a>
-                    <a href="#" class="text-[#34307A] hover:text-[#4a45a2]"><i class="fab fa-youtube fa-lg"></i></a>
-                    <a href="#" class="text-[#34307A] hover:text-[#4a45a2]"><i class="fab fa-x-twitter fa-lg"></i></a>
-                    <a href="#" class="text-[#34307A] hover:text-[#4a45a2]"><i class="fab fa-instagram fa-lg"></i></a>
-                    <a href="#" class="text-[#34307A] hover:text-[#4a45a2]"><i class="fab fa-tiktok fa-lg"></i></a>
+                    <a href="https://id.linkedin.com/company/pusatkarieruinjkt" class="text-[#34307A] hover:text-[#4a45a2]" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
+                    <a href="https://t.me/s/pusatkarieruinjkt" class="text-[#34307A] hover:text-[#4a45a2]" target="_blank"><i class="fab fa-telegram fa-lg"></i></a>
+                    <a href="https://www.youtube.com/channel/UCF7duvPFG2JxLWcgTUFHp9w" class="text-[#34307A] hover:text-[#4a45a2]" target="_blank"><i class="fab fa-youtube fa-lg"></i></a>
+                    <a href="https://x.com/karieruinjkt" class="text-[#34307A] hover:text-[#4a45a2]" target="_blank"><i class="fab fa-x-twitter fa-lg"></i></a>
+                    <a href="https://www.instagram.com/karieruinjakarta/" class="text-[#34307A] hover:text-[#4a45a2]" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="https://www.tiktok.com/@karieruinjakarta" class="text-[#34307A] hover:text-[#4a45a2]" target="_blank"><i class="fab fa-tiktok fa-lg"></i></a>
                 </div>
             </div>
 
-            {{-- === 2. What We Do === --}}
+            {{-- === What We Do === --}}
             <div>
                 <h3 class="font-semibold text-lg mb-3 text-[#34307A]">What We Do</h3>
                 <ul class="space-y-1 text-sm">
@@ -36,7 +36,7 @@
                 </ul>
             </div>
 
-            {{-- === 3. Institution === --}}
+            {{-- === Institution === --}}
             <div>
                 <h3 class="font-semibold text-lg mb-3 text-[#34307A]">Institution</h3>
                 <ul class="space-y-1 text-sm">
@@ -48,7 +48,7 @@
                 </ul>
             </div>
 
-            {{-- === 4. Support === --}}
+            {{-- === Support === --}}
             <div>
                 <h3 class="font-semibold text-lg mb-3 text-[#34307A]">Support</h3>
                 <ul class="space-y-1 text-sm">
@@ -58,7 +58,7 @@
                 </ul>
             </div>
 
-            {{-- === 5. Contact === --}}
+            {{-- === Contact === --}}
             <div>
                 <h3 class="font-semibold text-lg mb-3 text-[#34307A]">Contact</h3>
                 <p class="text-sm">
