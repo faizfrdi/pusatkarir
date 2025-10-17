@@ -11,9 +11,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 
 RUN chmod -R 775 storage bootstrap/cache
+RUN touch /app/database/database.sqlite
 
 EXPOSE 8080
-
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s CMD curl -f http://localhost:8080 || exit 1
 
 CMD php artisan optimize:clear && \
